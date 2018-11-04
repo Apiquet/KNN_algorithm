@@ -2,7 +2,7 @@ clear;
 close all; 
 clc;
 
-dataset_path = '../../TP3-KNN-Datasets/';
+dataset_path = '../Data/';
 rng(42);
 seed = rng;
 
