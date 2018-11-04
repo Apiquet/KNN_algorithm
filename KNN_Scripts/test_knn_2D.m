@@ -6,10 +6,6 @@ dataset_path = '../Data/';
 rng(42);
 seed = rng;
 
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%           1) Load 2D KNN Function Testing Dataset          %%
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%  Load Concentric Circle Data
 % Load Dataset
 load(strcat(dataset_path,'/2d-concentric-circles.mat'))
 [~, M] = size(X);
@@ -23,12 +19,9 @@ options.labels      = y;
 options.class_names = {'y = 1','y = 2'};
 options.title       = '2D Concentric Circles Dataset';
 
+%Using ML function to plot data
 h0 = ml_plot_data(X',options);
 axis equal
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%     2) Data Handling for Classification (split_data.m)        %%
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Select Training/Testing Ratio
 valid_ratio = 0.8;
@@ -36,10 +29,6 @@ valid_ratio = 0.8;
 % Split data into a training dataset that kNN can use to make predictions 
 % and a test dataset that we can use to evaluate the accuracy of the model.
 [X_train, y_train, X_test, y_test] = split_data(X, y, valid_ratio);
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%     3) Visualize kNN Results and Accuracy            %%
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Select k
 params.k = 2; 
@@ -65,6 +54,8 @@ axis equal
 knn_options.k      = params.k;
 knn_options.d_type = params.d_type;
 [~, model]= knn_classifier(X_train, y_train, [], knn_options);
+
+%Using ML function to plot model
 f_knn     = @(X_test)knn_classifier(X_test, [], model, []);
 
 % Plot Decision Boundary
@@ -74,5 +65,7 @@ c_options.dim_swaped     = true;
 c_options.show_misclass  = false;
 c_options.title          = sprintf('K(%d)-NN Decision Boundary with valid-ratio: %1.2f',params.k,valid_ratio);
 if exist('hc','var') && isvalid(hc), delete(hc);end
+
+%Using ML function to plot model
 hc = ml_plot_classifier(f_knn,X',y,c_options,plot_data_options);
 axis tight
