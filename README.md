@@ -1,5 +1,7 @@
 # KNN algorithm
 
+Project: https://apiquet.com/2018/12/01/k-nearest-neighbour-knn/
+
 KNN is a learning algorithm which can be used for classification. 
 The output is classified by a majority vote of its neighbours.
 
